@@ -11,10 +11,10 @@ YLW = Fore.YELLOW
 RED = Fore.RED
 RST = Fore.RESET
 
-PROG = "Get 2025.1 (c)Ivaylo Vasilev"
-USER_AGENT = "Get/2025.1-win32"
+PROG = f"Get 2025.2 on {sys.platform} (c)Ivaylo Vasilev"
+USER_AGENT = f"Get/2025.2-{sys.platform}"
 
-parser = argparse.ArgumentParser(prog="get", description="Get - files downloader", epilog="(c)2024 Ivaylo Vasilev")
+parser = argparse.ArgumentParser(prog="get", description="Get - files downloader", epilog="(c)2025 Ivaylo Vasilev")
 parser.add_argument("url", metavar="URL", nargs="?", help="specify URL")
 parser.add_argument("-n", "--name", metavar="NAME", help="specify file name")
 parser.add_argument("-d", "--directory", metavar="DIR", help="specify download directory")
