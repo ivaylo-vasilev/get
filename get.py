@@ -11,8 +11,8 @@ YLW = Fore.YELLOW
 RED = Fore.RED
 RST = Fore.RESET
 
-PROG = f"Get 2025.2 on {sys.platform} (c)Ivaylo Vasilev"
-USER_AGENT = f"Get/2025.2-{sys.platform}"
+PROG = f"Get 2025.2.1 on {sys.platform} (c)Ivaylo Vasilev"
+USER_AGENT = f"Get/2025.2.1-{sys.platform}"
 
 parser = argparse.ArgumentParser(prog="get", description="Get - files downloader", epilog="(c)2025 Ivaylo Vasilev")
 parser.add_argument("url", metavar="URL", nargs="?", help="specify URL")
@@ -45,8 +45,8 @@ mime_types = [
 def main():
     url = args.url
     if url == None:
-        print("error: missing URL")
-        print("usage: get [-h] [-n NAME] [-d DIR] [-i] [-p] [--user-agent STR] [--version] [URL]")
+        print(f"{RED}error:{RST} missing URL")
+        parser.print_usage()
         sys.exit(1)
     
     banner()
