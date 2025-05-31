@@ -1,5 +1,8 @@
+#!/usr/bin/env python3
+
 import sys
 import os
+from pathlib import Path
 import argparse
 import requests
 from colorama import init, Fore
@@ -11,18 +14,18 @@ YLW = Fore.YELLOW
 RED = Fore.RED
 RST = Fore.RESET
 
-PROG = f"Get 2025.2.1 on {sys.platform} (c)Ivaylo Vasilev"
-USER_AGENT = f"Get/2025.2.1-{sys.platform}"
+PROG = f"Get 3.0 on {sys.platform} (c)Ivaylo Vasilev"
+USER_AGENT = f"Get/3.0-{sys.platform}"
 
 parser = argparse.ArgumentParser(prog="get", description="Get - files downloader", epilog="(c)2025 Ivaylo Vasilev")
 parser.add_argument("url", metavar="URL", nargs="?", help="specify URL")
-parser.add_argument("-n", "--name", metavar="NAME", help="specify file name")
-parser.add_argument("-d", "--directory", metavar="DIR", help="specify download directory")
+parser.add_argument("-o", "--output", metavar="<file>", help="specify file name")
+parser.add_argument("-d", "--directory", metavar="<directory>", help="specify download directory")
 parser.add_argument("-c", "--check", action="store_true", help="check file size")
 parser.add_argument("-i", "--info", action="store_true", help="show headers")
 parser.add_argument("-p", "--print", action="store_true", help="show response in terminal window")
 parser.add_argument("--status", action="store_true", help="show http status code")
-parser.add_argument("--user-agent", metavar="STR", default=USER_AGENT, help="set user-agent")
+parser.add_argument("--user-agent", metavar="<string>", default=USER_AGENT, help="set user-agent")
 parser.add_argument("--version", action="version", version=PROG, help="show program version")
 args = parser.parse_args()
 
@@ -106,9 +109,10 @@ def download(url):
             print(f"{RED}Error:{RST} Missing {e} in header")
             file_type = "Unknown"
 
-        if args.name:
+        if args.output:
+            name = Path(args.output).stem
             ext = url.split(".")[-1]
-            filename = f"{args.name}.{ext}"
+            filename = (name + os.path.extsep + ext)
         else:
             filename = url.split("/")[-1]
         
