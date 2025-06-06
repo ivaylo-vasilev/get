@@ -12,10 +12,11 @@ init(autoreset=True)
 GRN = Fore.GREEN
 YLW = Fore.YELLOW
 RED = Fore.RED
+BLU = Fore.BLUE
 RST = Fore.RESET
 
-PROG = f"Get 3.0 on {sys.platform} (c)Ivaylo Vasilev"
-USER_AGENT = f"Get/3.0-{sys.platform}"
+PROG = f"Get 3.1 on {sys.platform} (c)Ivaylo Vasilev"
+USER_AGENT = f"Get/3.1-{sys.platform}"
 
 parser = argparse.ArgumentParser(prog="get", description="Get - files downloader", epilog="(c)2025 Ivaylo Vasilev")
 parser.add_argument("url", metavar="URL", nargs="?", help="specify URL")
@@ -55,7 +56,7 @@ def main():
     banner()
 
     if args.user_agent != USER_AGENT:
-        print(f"{GRN}[+]{RST} Using spoofed User-Agent")
+        print(f"{BLU}[*]{RST} Using spoofed User-Agent")
         print("----------------------------")
     
     print(download(url))
@@ -120,16 +121,16 @@ def download(url):
             if file_size == 0.00:
                 print(f"{YLW}[!]{RST} '{filename}' size unknown")
             else:
-                print(f"{GRN}[+]{RST} '{filename}' size: {file_size:.2f} MB")
+                print(f"{BLU}[*]{RST} '{filename}' size: {file_size:.2f} MB")
             while True:
-                q = input("Continue download? [Yes/No] ").lower().strip()
+                q = input("Continue download? [Y/n] ").lower().strip()
                 if q == "yes" or q == "y":
                     print("")
                     break
                 elif q == "no" or q == "n":
                     return f"{RED}[-]{RST} Download cancelled"
                 else:
-                    print(f"Error: Unknown input: '{q}'")
+                    print(f"{YLW}[!]{RST} Unknown input: '{q}'")
                     continue
 
         print(f"Status: {status_code} | File type: {file_type}")
