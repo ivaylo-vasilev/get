@@ -31,6 +31,6 @@ options:
                         set user-agent
   --version             show program version
 
-(c)2025 Ivaylo Vasilev
+(c)Ivaylo Vasilev
 
 ```

@@ -15,10 +15,10 @@ RED = Fore.RED
 BLU = Fore.BLUE
 RST = Fore.RESET
 
-PROG = f"Get 3.1 on {sys.platform} (c)Ivaylo Vasilev"
-USER_AGENT = f"Get/3.1-{sys.platform}"
+PROG = f"Get 3.3 on {sys.platform} (c)Ivaylo Vasilev"
+USER_AGENT = f"Get/3.3-{sys.platform}"
 
-parser = argparse.ArgumentParser(prog="get", description="Get - files downloader", epilog="(c)2025 Ivaylo Vasilev")
+parser = argparse.ArgumentParser(prog="get", description="Get - files downloader", epilog="(c)Ivaylo Vasilev")
 parser.add_argument("url", metavar="URL", nargs="?", help="specify URL")
 parser.add_argument("-o", "--output", metavar="<file>", help="specify file name")
 parser.add_argument("-d", "--directory", metavar="<directory>", help="specify download directory")
@@ -49,7 +49,7 @@ mime_types = [
 def main():
     url = args.url
     if url == None:
-        print(f"{RED}error:{RST} missing URL")
+        print(f"{RED}Error:{RST} missing URL")
         parser.print_usage()
         sys.exit(1)
     
@@ -96,7 +96,10 @@ def download(url):
             sys.exit(6)
         status_code = r.status_code
         if status_code != 200:
-            print(f"Status: {status_code} ... {RED}error{RST}")
+			if status_code in http_codes:
+				print(f"{RED}Error{RST}: Status code: {status_code} [ {http_codes[http_code]} ]")
+			else:
+				print(f"{RED}Error{RST}: Status code: {status_code}")
             sys.exit(2)
         try:
             file_length = r.headers["Content-Length"]
@@ -151,20 +154,20 @@ def download(url):
 
         print("--------------------------------------")
 
-        print(f"Downloading: {filename} ...", end="\r")
+        print(f"Downloading: {filename} ...")
 
         with open(f"{save_path}/{filename}", "wb") as file:
             for chunk in r.iter_content(chunk_size=1024):
                 file.write(chunk)
         
-        return f"Downloading: {filename} ... {GRN}done{RST}"
+        return f"{GRN}[+]{RST} Download complete"
     except KeyboardInterrupt:
         os.remove(f"{save_path}/{filename}")
-        return f"Downloading: {filename} ... {YLW}canceled{RST}"
+        return f"{YLW}[-]{RST} Download cancelled"
     except requests.exceptions.ConnectionError as e:
-        return e
+        return f"{RED}[!]{RST} {e}"
     except requests.exceptions.MissingSchema as e:
-        return e
+        return f"{RED}[!]{RST} {e}"
 
 
 def info(response):
