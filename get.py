@@ -96,10 +96,10 @@ def download(url):
             sys.exit(6)
         status_code = r.status_code
         if status_code != 200:
-			if status_code in http_codes:
-				print(f"{RED}Error{RST}: Status code: {status_code} [ {http_codes[http_code]} ]")
-			else:
-				print(f"{RED}Error{RST}: Status code: {status_code}")
+            if status_code in http_codes:
+                print(f"{RED}Error{RST}: Status code: {status_code} [ {http_codes[http_code]} ]")
+            else:
+                print(f"{RED}Error{RST}: Status code: {status_code}")
             sys.exit(2)
         try:
             file_length = r.headers["Content-Length"]
