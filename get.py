@@ -15,8 +15,8 @@ RED = Fore.RED
 BLU = Fore.BLUE
 RST = Fore.RESET
 
-PROG = f"Get 3.3 on {sys.platform} (c)Ivaylo Vasilev"
-USER_AGENT = f"Get/3.3-{sys.platform}"
+PROG = f"Get 3.3.1 on {sys.platform} (c)Ivaylo Vasilev"
+USER_AGENT = f"Get/3.3.1-{sys.platform}"
 
 parser = argparse.ArgumentParser(prog="get", description="Get - files downloader", epilog="(c)Ivaylo Vasilev")
 parser.add_argument("url", metavar="URL", nargs="?", help="specify URL")
@@ -97,7 +97,7 @@ def download(url):
         status_code = r.status_code
         if status_code != 200:
             if status_code in http_codes:
-                print(f"{RED}Error{RST}: Status code: {status_code} [ {http_codes[http_code]} ]")
+                print(f"{RED}Error{RST}: Status code: {status_code} [ {http_codes[status_code]} ]")
             else:
                 print(f"{RED}Error{RST}: Status code: {status_code}")
             sys.exit(2)
